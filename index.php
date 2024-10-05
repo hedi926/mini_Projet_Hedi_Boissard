@@ -23,7 +23,7 @@ $messages = $pdo->query("SELECT m.id, m.message, m.created_at, u.username FROM m
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Livre d'Or</title>
+    <title>Accueil - Livre d'or</title>
 </head>
 <body>
     <h2>Livre d'Or</h2>
