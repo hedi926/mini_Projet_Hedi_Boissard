@@ -9,15 +9,13 @@ if (!isset($_SESSION['username'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $message = trim($_POST['message']);
-    
-    // Validation
+
     if (!empty($message)) {
         $stmt = $pdo->prepare("INSERT INTO messages (user_id, message) VALUES (?, ?)");
         $stmt->execute([$_SESSION['user_id'], $message]);
     }
 }
 
-// Récupération des messages
 $messages = $pdo->query("SELECT m.id, m.message, m.created_at, u.username FROM messages m JOIN users u ON m.user_id = u.id ORDER BY m.created_at DESC")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
