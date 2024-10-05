@@ -7,20 +7,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password']);
     $errors = [];
 
-    // Validation des champs
     if (empty($username) || empty($password)) {
         $errors[] = 'Tous les champs sont requis.';
     }
 
     if (empty($errors)) {
-        // Vérification des informations d'identification
+        // cette ligne vérifie les informations d'identification
 $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
 $stmt->execute([$username]);
 $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
         $_SESSION['username'] = $user['username'];
-        $_SESSION['user_id'] = $user['id']; // Ajoutez cette ligne pour stocker l'ID
+        $_SESSION['user_id'] = $user['id']; // cette ligne sert à stocker l'id
         header("Location: index.php");
         exit;
     } else {
