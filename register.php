@@ -6,8 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $errors = [];
-
-    // Validation des champs
+    
     if (empty($username) || empty($password)) {
         $errors[] = 'Tous les champs sont requis.';
     } elseif (strlen($password) < 6) {
@@ -15,10 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        // Hachage du mot de passe
+        // cette ligne sert à hacher le mdp
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        // Insertion dans la base de données
+        
         $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
         if ($stmt->execute([$username, $hashedPassword])) {
             $_SESSION['username'] = $username;
